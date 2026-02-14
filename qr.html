@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Love Album 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+  body {
+    background: linear-gradient(135deg, #ffb6c1, #d8b4ff);
+    color:#2b2b2b;
+    overflow-x:hidden;
+    cursor:pointer;
+  }
+
+  header {
+    padding:50px 20px 20px 20px;
+    text-align:center;
+  }
+  header h1 { font-size:2.8rem; color:#6a0dad; }
+  header p { margin-top:8px; font-size:1rem; opacity:0.8; }
+
+  .hero img {
+    width:80%;
+    max-width:300px;
+    border-radius:50%;
+    border:5px solid white;
+    box-shadow:0 0 25px rgba(106,13,173,0.3);
+    margin-top:20px;
+    cursor:pointer;
+    transition: transform 0.3s ease;
+  }
+  .hero img:hover { transform: scale(1.05); }
+
+  section {
+    width:90%;
+    max-width:900px;
+    margin:50px auto;
+    padding:25px;
+    background: rgba(106,13,173,0.35);
+    border-radius:20px;
+    backdrop-filter: blur(10px);
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+    opacity:0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+    perspective: 1500px;
+    position: relative;
+  }
+  section.visible { opacity:1; transform: translateY(0); }
+
+  section h2 { color:#6a0dad; margin-bottom:15px; }
+  section p { font-size:1rem; margin-bottom:15px; }
+
+  .gallery {
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    transform-style: preserve-3d;
+  }
+
+  .gallery img, .gallery video {
+    width: calc(20% - 12px);
+    border-radius:15px;
+    object-fit:cover;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    cursor:pointer;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 0.3s ease;
+    backface-visibility: hidden;
+  }
+  .gallery img:hover, .gallery video:hover { 
+    transform: scale(1.05) rotateY(5deg); 
+    box-shadow:0 10px 30px rgba(255,182,193,0.6);
+  }
+
+  #lightbox {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    z-index:1000;
+    cursor: zoom-out;
+  }
+  #lightbox img, #lightbox video {
+    max-width:90%;
+    max-height:90%;
+    border-radius:15px;
+    object-fit: contain;
+  }
+  #lightbox video { outline:none; }
+
+  button {
+    margin-top:25px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#ffb6c1;
+    color:#6a0dad;
+    font-size:1rem;
+    cursor:pointer;
+    transition: all 0.3s ease;
+  }
+  button:hover { background:#ffc0cb; color:#6a0dad; }
+
+  .heart {
+    position: fixed;
+    font-size:18px;
+    animation: float 3s linear forwards;
+    pointer-events: none;
+  }
+  @keyframes float {
+    0% { transform: translateY(0) scale(1); opacity:1; }
+    100% { transform: translateY(-200px) scale(1.3); opacity:0; }
+  }
+
+  footer { padding:20px; font-size:0.9rem; opacity:0.7; text-align:center; }
+
+  .pagination {
+    margin-top:20px;
+    text-align:center;
+  }
+  .pagination button {
+    margin:0 5px;
+    padding:8px 15px;
+    border-radius:20px;
+    background:#ffb6c1;
+    color:#6a0dad;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  .pagination button.active {
+    background:#af62e5;
+    color:#6a0dad;
+    transform: rotateY(360deg);
+  }
+
+  .psych-symbol {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 3rem;
+    opacity: 0.2;
+    pointer-events: none;
+    animation: floatSymbol 6s ease-in-out infinite alternate;
+  }
+  .psych-symbol:hover {
+    animation: floatSymbol 0.6s ease-in-out infinite alternate;
+    transform: rotate(15deg) scale(1.1);
+  }
+  @keyframes floatSymbol {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(20deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  @keyframes floatDot {
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-30px);}
+    100%{transform:translateY(0);}
+  }
+
+  @media(max-width:480px){
+    header h1{ font-size:2rem; }
+    .hero img{ width:200px; height:200px; }
+    section{ padding:15px; margin:30px auto; }
+    .gallery img, .gallery video { width: calc(50% - 10px); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Welcome to Our Album </h1>
+</header>
+
+<section>
+  <h2>Gallery 📸🎥</h2>
+  
+  <div class="psych-symbol">𝚿⋆. 𐙚 ˚</div>
+  <div class="psych-symbol" style="top:50px; left:20px;">𝚿⋆. 𐙚 ˚</div>
+  <div class="psych-symbol" style="bottom:20px; right:50px;">𝚿⋆. 𐙚 ˚</div>
+  <div class="psych-symbol" style="bottom:20px; right:50px;">🌼🌼🌼 ˚</div>
+  <div class="psych-symbol" style="bottom:20px; right:50px;">🌼🌼🌼 ˚</div>
+
+  <div class="gallery" id="gallery">
+    <img src="e.jpg" alt="Memory 8" onclick="openLightbox(this.src)">
+    <img src="chyn.jpg" alt="Memory 14" onclick="openLightbox(this.src)">
+    <img src="chynn.jpg" alt="Memory 15" onclick="openLightbox(this.src)">
+    <img src="chynnn.jpg" alt="Memory 16" onclick="openLightbox(this.src)">
+    <img src="chynnaaa.jpg" alt="Memory 17" onclick="openLightbox(this.src)">
+    <img src="y.jpg" alt="Memory 3" onclick="openLightbox(this.src)">
+    <img src="n.jpg" alt="Memory 4" onclick="openLightbox(this.src)">
+    <img src="a.jpg" alt="Memory 6" onclick="openLightbox(this.src)">
+    <img src="r.jpg" alt="Memory 7" onclick="openLightbox(this.src)">
+    <img src="x.jpg" alt="Memory 9" onclick="openLightbox(this.src)">
+    <img src="c.jpg" alt="Memory 1" onclick="openLightbox(this.src)">
+    <img src="f5d73ae6-ab0a-480e-be88-5b02ff4eedcb.jpg" alt="Memory 18" onclick="openLightbox(this.src)">
+    <img src="c1dacfcb-a57b-4113-a936-f34b3afefaa2.jpg" alt="Memory 20" onclick="openLightbox(this.src)">
+    <img src="4c786b59-c45f-4f57-b299-5ea8c5be8c0a.jpg" alt="Memory 19" onclick="openLightbox(this.src)">
+    <img src="13099bd8-33c7-4d41-88de-c6db9c2837ce.jpg" alt="Memory 19" onclick="openLightbox(this.src)">
+    <img src="nnnn.jpg" alt="Memory 12" onclick="openLightbox(this.src)">
+    <img src="aa.jpg" alt="Memory 13" onclick="openLightbox(this.src)">
+    <img src="h.jpg" alt="Memory 2" onclick="openLightbox(this.src)">
+    <img src="nn.jpg" alt="Memory 5" onclick="openLightbox(this.src)">
+    <img src="nnn.jpg" alt="Memory 11" onclick="openLightbox(this.src)">
+    <img src="yy.jpg" alt="Memory 10" onclick="openLightbox(this.src)">
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="cc.mp4" type="video/mp4">
+    </video>
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="chynna.mp4" type="video/mp4">
+    </video>
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="40348bfe-ed82-4e97-989e-c10c77d89aa5.mp4" type="video/mp4">
+    </video>
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="0cd848e3-230b-4227-ad0b-0df56f862f7f.mp4" type="video/mp4">
+    </video>
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="dc585760-25bd-45b9-af92-63a715367231.mp4" type="video/mp4">
+    </video>
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="video8.mp4" type="video/mp4">
+    </video>
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="84d5b157-7c87-4511-a1a9-c867ce1f0715.mp4" type="video/mp4">
+    </video>
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="chynnaa.mp4" type="video/mp4">
+    </video>
+    <video onclick="openLightbox(this.src)" controls>
+      <source src="rex.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="pagination" id="pagination"></div>
+  <button onclick="spawnHearts()">Spread Some Love 💕</button>
+</section>
+
+<div id="lightbox"></div>
+<footer>Made with 💖 by Your Name</footer>
+
+<!-- 🎵 Music Added Here -->
+<audio id="bgMusic" loop>
+  <source src="Tahanan (Live at The Cozy Cove) - El Manu, Jessy Kang, Jason Marvin.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+let musicStarted = false;
+document.body.addEventListener('click', () => {
+  if(!musicStarted){
+    document.getElementById('bgMusic').play();
+    musicStarted = true;
+  }
+}, { once: true });
+
+function spawnHearts() {
+  for(let i=0;i<25;i++){
+    let heart=document.createElement('div');
+    heart.className='heart';
+    heart.innerHTML='💖';
+    heart.style.left=Math.random()*window.innerWidth+'px';
+    heart.style.top=Math.random()*window.innerHeight+'px';
+    heart.style.fontSize=(14+Math.random()*20)+'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),3000);
+  }
+
+  setTimeout(() => {
+    const password = prompt("Enter the secret code to see your Valentine message 💌"); 
+    if(password === "baby2026") {
+      
+      const modal = document.createElement('div');
+      modal.style.position = 'fixed';
+      modal.style.top = '50%';
+      modal.style.left = '50%';
+      modal.style.transform = 'translate(-50%, -50%) scale(0)';
+      modal.style.background = 'rgba(255,182,193,0.95)';
+      modal.style.padding = '30px';
+      modal.style.borderRadius = '25px';
+      modal.style.boxShadow = '0 10px 40px rgba(0,0,0,0.25)';
+      modal.style.color = '#6a0dad';
+      modal.style.fontSize = '1rem';
+      modal.style.textAlign = 'center';
+      modal.style.zIndex = 2000;
+      modal.style.maxWidth = '90%';
+      modal.style.animation = 'popIn 0.8s forwards cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+      modal.innerHTML = `
+        <p>Happy Valentine’s Day, my baby! 💘<br>
+        I’m so happy, baby, nga nakaila tika. You’re truly a blessing to me, baby. Especially karon, 2026 started off kinda pangit, but with you, it makes everything so much better, jud baby. Tanan problema nako mawala pag kasabay tika, baby. Ikaw jud ang reason sa akong mga smile, baby.<br>
+        I’ll make bawi jud sa imoha kung unsa akung pagkukulang, baby. Mubawi ko, broke jud kaayo ko for now, but syempre, dili ni mag dugay, baby. Mangita jud kog work para mahatag nako imong gusto. I want to give the best future jud, baby.<br>
+        Basta baby, bisan unsa pa, I promise I’ll always do my best para happy ka. I just really hope I can make you feel loved jud every single day, baby. I love bisan sa simple things, happy ta together. Wala ko’y laing gusto kundi ikaw lang jud, baby. Thank you jud for being patient with me and for loving me bisan unsa pa. I can’t wait for all the memories we’ll make together, baby. I LOVE YOU SO MUCH ALWAYS MY PRETTY BABY 😘😘😘</p>
+        <button id="closeModal" style="
+          margin-top:20px;
+          padding:12px 25px;
+          border:none;
+          border-radius:20px;
+          background:#6a0dad;
+          color:#fff;
+          font-size:1rem;
+          cursor:pointer;
+        ">Close 💖</button>
+      `;
+      document.body.appendChild(modal);
+
+      for(let i=0;i<15;i++){
+        let heart=document.createElement('div');
+        heart.className='heart';
+        heart.innerHTML=['💖','✨','🌸','💕'][Math.floor(Math.random()*4)];
+        heart.style.left=Math.random()*modal.offsetWidth+'px';
+        heart.style.top=Math.random()*modal.offsetHeight+'px';
+        heart.style.fontSize=(12+Math.random()*12)+'px';
+        modal.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+      }
+
+      modal.querySelector('#closeModal').onclick = () => {
+        modal.remove();
+      }
+
+      const style = document.createElement('style');
+      style.innerHTML = `
+        @keyframes popIn {
+          0% { transform: translate(-50%, -50%) scale(0); opacity:0; }
+          50% { transform: translate(-50%, -50%) scale(1.2); opacity:1; }
+          100% { transform: translate(-50%, -50%) scale(1); opacity:1; }
+        }
+      `;
+      document.head.appendChild(style);
+
+    } else if(password !== null) {
+      alert("Oops 😅 wrong password! Try again, baby 💖");
+    }
+  }, 50);
+}
+
+// Lightbox for images & videos, mobile friendly
+function openLightbox(src){
+  const lb = document.getElementById('lightbox');
+  lb.innerHTML = '';
+  
+  if(src.endsWith('.mp4')){ 
+    let vid = document.createElement('video');
+    vid.src = src;
+    vid.controls = true;
+    vid.autoplay = true;
+    vid.style.maxHeight = '90%';
+    vid.style.maxWidth = '90%';
+    lb.appendChild(vid);
+  } else { 
+    let img = document.createElement('img');
+    img.src = src;
+    img.style.maxWidth = '95%';
+    img.style.maxHeight = '95%';
+    img.style.objectFit = 'contain';
+    lb.appendChild(img);
+  }
+
+  lb.style.display = 'flex';
+  lb.style.cursor = 'zoom-out';
+  lb.onclick = closeLightbox;
+}
+
+function closeLightbox(){
+  const lb = document.getElementById('lightbox');
+  lb.style.display = 'none';
+  lb.innerHTML = '';
+}
+
+const sections=document.querySelectorAll('section');
+window.addEventListener('scroll',()=>{
+  const trigger=window.innerHeight*0.85;
+  sections.forEach(sec=>{
+    if(sec.getBoundingClientRect().top<trigger){ sec.classList.add('visible'); }
+  });
+});
+sections.forEach(sec=>{
+  if(sec.getBoundingClientRect().top<window.innerHeight*0.85){ sec.classList.add('visible'); }
+});
+
+const gallery = document.getElementById('gallery');
+const items = Array.from(gallery.children);
+const pagination = document.getElementById('pagination');
+const perPage = 5;
+let currentPage = 1;
+const totalPages = Math.ceil(items.length/perPage);
+
+function showPage(page){
+  gallery.style.transition='transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+  gallery.style.transform='rotateY(180deg)';
+  setTimeout(()=>{
+    gallery.innerHTML='';
+    const start = (page-1)*perPage;
+    const end = start+perPage;
+    const pageItems = items.slice(start,end);
+    pageItems.forEach(i=> gallery.appendChild(i));
+    gallery.style.transform='rotateY(360deg)';
+    currentPage=page;
+    renderPagination();
+  }, 400);
+}
+
+function renderPagination(){
+  pagination.innerHTML='';
+  for(let i=1;i<=totalPages;i++){
+    let btn = document.createElement('button');
+    btn.textContent=i;
+    btn.classList.toggle('active', i===currentPage);
+    btn.onclick = ()=> showPage(i);
+    pagination.appendChild(btn);
+  }
+}
+
+showPage(1);
+
+const colors = ['💖','✨','🌸','💕'];
+document.addEventListener('mousemove', e => {
+  const heart = document.createElement('div');
+  heart.textContent = colors[Math.floor(Math.random()*colors.length)];
+  heart.style.position='absolute';
+  heart.style.left=e.pageX+'px';
+  heart.style.top=e.pageY+'px';
+  heart.style.fontSize=(12+Math.random()*12)+'px';
+  heart.style.opacity=0.8;
+  heart.style.pointerEvents='none';
+  heart.style.transition='transform 1s, opacity 1s';
+  document.body.appendChild(heart);
+  setTimeout(()=>{
+    heart.style.opacity=0;
+    heart.style.transform=`translateY(-30px) rotate(${Math.random()*360}deg)`;
+  },50);
+  setTimeout(()=>heart.remove(),1000);
+});
+
+for(let i=0;i<20;i++){
+  let dot=document.createElement('div');
+  dot.style.position='absolute';
+  dot.style.width=dot.style.height=(4+Math.random()*6)+'px';
+  dot.style.borderRadius='50%';
+  dot.style.background='rgba(255,255,255,'+Math.random()*0.3+')';
+  dot.style.left=Math.random()*window.innerWidth+'px';
+  dot.style.top=Math.random()*window.innerHeight+'px';
+  dot.style.pointerEvents='none';
+  dot.style.animation=`floatDot ${5+Math.random()*5}s linear infinite`;
+  document.body.appendChild(dot);
+}
+</script>
+
+</body>
+</html>
